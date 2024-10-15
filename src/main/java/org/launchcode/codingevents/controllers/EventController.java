@@ -24,4 +24,11 @@ public class EventController {
         return "events/index";
     }
 
+
+    // Handles request at http://localhost:8080/events/create
+    @GetMapping("create")
+    public String renderCreateEventForm() {
+        return "events/create";
+    }
+
 }
