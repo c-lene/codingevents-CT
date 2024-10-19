@@ -8,7 +8,9 @@
 <body>
     <h1>All Events</h1>
 
-    <p th:unless ="${events} and ${events.size()}"}>No Events!</p>
+    <nav th:replace = "fragments :: navigation"></nav>
+
+    <p th:unless = "${events} and ${events.size()}"}>No Events!</p>
 
     <ul>
         <th:block th:each = "event : ${events}">
