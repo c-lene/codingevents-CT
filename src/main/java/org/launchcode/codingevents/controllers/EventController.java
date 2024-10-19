@@ -20,14 +20,19 @@ public class EventController {
 
     @GetMapping
     public String displayAllEvents(Model model) {
+        String title = "All Events";
+        
         model.addAttribute("events", events);
+        model.addAttribute("title", title);
         return "events/index";
     }
 
 
     // Handles request at http://localhost:8080/events/create
     @GetMapping("create")
-    public String renderCreateEventForm() {
+    public String renderCreateEventForm(Model model) {
+        String title = "Create Event";
+        model.addAttribute("title", title);
         return "events/create";
     }
 
