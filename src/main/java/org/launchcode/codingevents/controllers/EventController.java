@@ -21,7 +21,7 @@ public class EventController {
     @GetMapping
     public String displayAllEvents(Model model) {
         String title = "All Events";
-        
+
         model.addAttribute("events", events);
         model.addAttribute("title", title);
         return "events/index";
