@@ -66,7 +66,38 @@ public class EventController {
                 EventData.remove(id);
             }
         }
+        return "redirect:/events";
+    }
 
+
+    @GetMapping("edit/{eventId}")
+    public String displayEditForm(Model model, @PathVariable int eventId) {
+
+        // Use an EventData method to find the event object with the given eventId.
+        Event eventToEdit = EventData.getById(eventId);
+
+        // Put the event object in the model with .addAttribute().
+        model.addAttribute("event", eventToEdit);
+
+        // Add a title to model that reads “Edit Event NAME (id=ID)” where NAME and ID are replaced by the values for the given event.
+        String title = "Edit Event" + eventToEdit.getName() + " (id=" + eventToEdit.getId() + ")";
+        model.addAttribute("title", title);
+
+
+        return "events/edit";
+    }
+
+
+    @PostMapping("edit")
+    public String processEditForm(int eventId, String name, String description) {
+        // Query 'EventData' or the event being edited with the given id paramer
+        Event eventToEdit = EventData.getById(eventId);
+
+        // Update the 'name' & 'description' of the event with the appropriate model setter methods
+        eventToEdit.setName(name);
+        eventToEdit.setDescription(description);
+
+        // Redirect the user to "/events" (the event listing page)
         return "redirect:/events";
     }
 
