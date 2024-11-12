@@ -57,9 +57,13 @@ public class EventController {
 
     }
 
+    
+    // Handler uses "required = false" parameter to make optional
+    // Allows user to submit without any events selected
     @PostMapping("delete")
     public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
 
+        // Once 'eventIds' is optional, uses IF statement to check that it is not "null" before entering the loop
         if (eventIds != null) {
             for (int id : eventIds) {
                 EventData.remove(id);
