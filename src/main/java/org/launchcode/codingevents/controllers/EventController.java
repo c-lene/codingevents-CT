@@ -4,10 +4,7 @@ import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +35,10 @@ public class EventController {
 
     // Handles request for the form at http://localhost:8080/events/create
     @PostMapping("create")
-    public String processCreateEventForm(@RequestParam String eventName, @RequestParam String eventDescription) {
+    public String processCreateEventForm(@ModelAttribute Event newEvent) {
 
         // Creates a new event object to pass into the List
-        EventData.add(new Event(eventName, eventDescription));
+        EventData.add(newEvent);
 
         // Returns a Redirect Response to the root path controller ==> displays output of eventName
         return "redirect:/events";
@@ -57,7 +54,7 @@ public class EventController {
 
     }
 
-    
+
     // Handler uses "required = false" parameter to make optional
     // Allows user to submit without any events selected
     @PostMapping("delete")
