@@ -38,7 +38,7 @@ public class EventController {
 
     // Handles request for the form at http://localhost:8080/events/create
     @PostMapping("create")
-    public String createEvent(@RequestParam String eventName, @RequestParam String eventDescription) {
+    public String processCreateEventForm(@RequestParam String eventName, @RequestParam String eventDescription) {
 
         // Creates a new event object to pass into the List
         EventData.add(new Event(eventName, eventDescription));
@@ -46,5 +46,29 @@ public class EventController {
         // Returns a Redirect Response to the root path controller ==> displays output of eventName
         return "redirect:/events";
     }
+
+
+    // Handler method that displays the form
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Events");
+        model.addAttribute("events", EventData.getAll());
+        return "events/delete";
+
+    }
+
+    @PostMapping("delete")
+    public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
+
+        if (eventIds != null) {
+            for (int id : eventIds) {
+                EventData.remove(id);
+            }
+        }
+
+        return "redirect:/events";
+    }
+
+
 
 }
