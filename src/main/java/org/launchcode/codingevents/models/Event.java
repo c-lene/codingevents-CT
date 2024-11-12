@@ -1,5 +1,7 @@
 package org.launchcode.codingevents.models;
 
+import java.util.Objects;
+
 public class Event {
 
     /** FIELDS **/
@@ -47,5 +49,22 @@ public class Event {
     @Override
     public String toString() {
         return name;
+    }
+
+
+
+    /** equals() & hashcode() Method **/
+    // Compares the id to make objects are the same if id matches
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return id == event.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
