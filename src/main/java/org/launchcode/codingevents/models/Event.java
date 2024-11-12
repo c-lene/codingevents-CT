@@ -2,6 +2,10 @@ package org.launchcode.codingevents.models;
 
 public class Event {
 
+    /** FIELDS **/
+    private int id;
+    private static int nextId = 1;
+
     private String name;
     private String description;
 
@@ -10,6 +14,8 @@ public class Event {
     public Event(String name, String description) {
         this.name = name;
         this.description = description;
+        this.id = nextId;
+        nextId++;
     }
 
 
@@ -20,6 +26,10 @@ public class Event {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setName(String name) {
