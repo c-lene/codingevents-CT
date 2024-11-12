@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +17,13 @@ public class EventController {
 
     // A Static ArrayList that allows access at Class level
     // Static List only exist in the lifetime of the application ==> Once Quit, all data will be lost
-    private static List<String> events = new ArrayList<>();
+    private static List<Event> events = new ArrayList<>();
 
     @GetMapping
     public String displayAllEvents(Model model) {
         String title = "All Events";
 
+        // uses the event object to pass into the View
         model.addAttribute("events", events);
         model.addAttribute("title", title);
         return "events/index";
@@ -40,7 +42,8 @@ public class EventController {
     // Handles request for the form at http://localhost:8080/events/create
     @PostMapping("create")
     public String createEvent(@RequestParam String eventName) {
-        events.add(eventName);
+        // Creates a new event object to pass into the List
+        events.add(new Event(eventName));
 
         // Returns a Redirect Response to the root path controller ==> displays output of eventName
         return "redirect:/events";
