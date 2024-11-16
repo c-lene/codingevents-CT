@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
@@ -23,6 +21,15 @@ public class Event {
     @Email(message = "Invalid email. Try again!")
     private String contactEmail;
 
+    @NotBlank(message = "Location CANNOT be left blank.")
+    private String location;
+
+    @AssertTrue(message = "MUST be registered for the event.")
+    private Boolean registeredAttendees;
+
+    @Positive(message = "Number of attendees MUST be 1/+.")
+    private int numberOfAttendees;
+
 
     /** CONSTRUCTOR **/
     public Event(String name, String description, String contactEmail) {
@@ -30,7 +37,6 @@ public class Event {
         this.name = name;
         this.description = description;
         this.contactEmail= contactEmail;
-        
     }
 
     // Added a No-Arg Constructor to Event that doesn't require any arguments
