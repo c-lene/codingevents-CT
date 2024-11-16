@@ -8,6 +8,9 @@
     <header th:replace = "fragments :: header"></header>
 
 <!--    <form method="post" action="/events/create">-->
+
+    <p th:text="${errorMsg}" style="color:red;"></p>
+
     <form method="post">
         <div class="form-group">
             <label>Name

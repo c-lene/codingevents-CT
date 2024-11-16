@@ -1,9 +1,11 @@
 package org.launchcode.codingevents.controllers;
 
+import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class EventController {
 
     // Handles request at http://localhost:8080/events/create
     @GetMapping("create")
-    public String renderCreateEventForm(Model model) {
+    public String displayCreateEventForm(Model model) {
         String title = "Create Event";
         model.addAttribute("title", title);
         return "events/create";
@@ -35,7 +37,16 @@ public class EventController {
 
     // Handles request for the form at http://localhost:8080/events/create
     @PostMapping("create")
-    public String processCreateEventForm(@ModelAttribute Event newEvent) {
+    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
+
+        // IF validation errors present, redirects to page back to the original form
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Create Event");
+
+            // Adds an Error message notify user of validation error
+            model.addAttribute("errorMsg", "Bad data!");
+            return "events/create";
+        }
 
         // Creates a new event object to pass into the List
         EventData.add(newEvent);
