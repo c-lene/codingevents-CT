@@ -31,6 +31,10 @@ public class EventController {
     public String displayCreateEventForm(Model model) {
         String title = "Create Event";
         model.addAttribute("title", title);
+
+        // Allows to pass an Empty Event into the View => Used to store information about Event fields
+        model.addAttribute(new Event());
+
         return "events/create";
     }
 
@@ -44,7 +48,7 @@ public class EventController {
             model.addAttribute("title", "Create Event");
 
             // Adds an Error message notify user of validation error
-            model.addAttribute("errorMsg", "Bad data!");
+//            model.addAttribute("errorMsg", "Bad data!");
             return "events/create";
         }
 
@@ -80,7 +84,5 @@ public class EventController {
 
         return "redirect:/events";
     }
-
-
 
 }
