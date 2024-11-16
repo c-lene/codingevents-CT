@@ -32,7 +32,7 @@ public class EventController {
         String title = "Create Event";
         model.addAttribute("title", title);
 
-        // Allows to pass an Empty Event into the View => Used to store information about Event fields
+        // Passes an empty Event object into the View by calling the No-Arg Constructor => Used to store information about Event fields
         model.addAttribute(new Event());
 
         return "events/create";

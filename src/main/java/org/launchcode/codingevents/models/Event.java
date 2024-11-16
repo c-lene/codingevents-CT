@@ -26,15 +26,20 @@ public class Event {
 
     /** CONSTRUCTOR **/
     public Event(String name, String description, String contactEmail) {
+        this();
         this.name = name;
         this.description = description;
         this.contactEmail= contactEmail;
+        
+    }
+
+    // Added a No-Arg Constructor to Event that doesn't require any arguments
+    public Event() {
+
+        // Sets the 'id' and leaves all other fields "null"
         this.id = nextId;
         nextId++;
     }
-
-    // Created an Constructor for an Empty Event
-    public Event() {}
 
 
 
