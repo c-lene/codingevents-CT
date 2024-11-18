@@ -3,6 +3,7 @@ package org.launchcode.codingevents.controllers;
 import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Event;
+import org.launchcode.codingevents.models.EventType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -30,10 +31,14 @@ public class EventController {
     @GetMapping("create")
     public String displayCreateEventForm(Model model) {
         String title = "Create Event";
+
         model.addAttribute("title", title);
 
         // Passes an empty Event object into the View by calling the No-Arg Constructor => Used to store information about Event fields
         model.addAttribute(new Event());
+
+        // Will return an Array of values of the 4 EventType Enums
+        model.addAttribute("types", EventType.values());
 
         return "events/create";
     }
