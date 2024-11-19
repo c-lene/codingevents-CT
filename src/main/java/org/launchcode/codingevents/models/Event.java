@@ -1,16 +1,23 @@
 package org.launchcode.codingevents.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-
 import java.util.Objects;
 
+
+
+@Entity
 public class Event {
 
     /** FIELDS **/
+
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
     @NotBlank(message = "Name is REQUIRED.")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
@@ -28,7 +35,6 @@ public class Event {
 
     /** CONSTRUCTOR **/
     public Event(String name, String description, String contactEmail, EventType type) {
-        this();
         this.name = name;
         this.description = description;
         this.contactEmail= contactEmail;
@@ -39,9 +45,6 @@ public class Event {
     // Added a No-Arg Constructor to Event that doesn't require any arguments
     public Event() {
 
-        // Sets the 'id' and leaves all other fields "null"
-        this.id = nextId;
-        nextId++;
     }
 
 
