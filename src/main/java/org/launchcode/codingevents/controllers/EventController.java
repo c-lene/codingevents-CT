@@ -28,7 +28,7 @@ public class EventController {
     // findAll, save, findById
 
     @GetMapping
-    public String displayAllEvents(@RequestParam(required = false) Integer categoryId, Model model) {
+    public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
 
         if (categoryId == null) {
             // uses the event object to pass into the View
