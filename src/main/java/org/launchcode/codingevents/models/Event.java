@@ -22,6 +22,9 @@ public class Event extends AbstractEntity {
     @NotNull(message = "Category is REQUIRED.")
     private EventCategory eventCategory;
 
+    @ManyToMany
+    private final List<Tag> tags = new ArrayList<>();
+
     @OneToOne(cascade = CascadeType.ALL)
     @Valid
     @NotNull
@@ -56,6 +59,10 @@ public class Event extends AbstractEntity {
         return eventDetails;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -77,4 +84,7 @@ public class Event extends AbstractEntity {
         return name;
     }
 
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+    }
 }
