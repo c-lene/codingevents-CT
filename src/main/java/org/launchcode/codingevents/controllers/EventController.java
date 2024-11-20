@@ -4,11 +4,16 @@ import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
+import org.launchcode.codingevents.models.EventCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
+
+
+
 
 @Controller
 @RequestMapping("events")
@@ -23,12 +28,29 @@ public class EventController {
     // findAll, save, findById
 
     @GetMapping
-    public String displayAllEvents(Model model) {
-        String title = "All Events";
+    public String displayAllEvents(@RequestParam(required = false) Integer categoryId, Model model) {
 
-        // uses the event object to pass into the View
-        model.addAttribute("events", eventRepository.findAll());
-        model.addAttribute("title", title);
+        if (categoryId == null) {
+            // uses the event object to pass into the View
+            model.addAttribute("title", "All Events");
+            model.addAttribute("events", eventRepository.findAll());
+
+        } else {
+            Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
+
+            // IF the query did NOT return a VALID categoryId
+            if (result.isEmpty()) {
+                model.addAttribute("title", "Invalid Category ID: " + categoryId);
+
+            } else {
+                // ELSE if query returned a VALID categoryId => will get the result of the query
+                EventCategory category = result.get();
+                model.addAttribute("title", "Events in Category: " + category.getName());
+
+                // Passes the Events into the View
+                model.addAttribute("events", category.getEvents());
+            }
+        }
         return "events/index";
     }
 
@@ -36,9 +58,7 @@ public class EventController {
     // Handles request at http://localhost:8080/events/create
     @GetMapping("create")
     public String displayCreateEventForm(Model model) {
-        String title = "Create Event";
-
-        model.addAttribute("title", title);
+        model.addAttribute("title", "Create Event");
 
         // Passes an empty Event object into the View by calling the No-Arg Constructor => Used to store information about Event fields
         model.addAttribute(new Event());
@@ -59,7 +79,6 @@ public class EventController {
             model.addAttribute("title", "Create Event");
 
             // Adds an Error message notify user of validation error
-//            model.addAttribute("errorMsg", "Bad data!");
             return "events/create";
         }
 
