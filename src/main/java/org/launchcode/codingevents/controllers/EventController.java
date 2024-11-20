@@ -27,6 +27,8 @@ public class EventController {
 
     // findAll, save, findById
 
+    
+   // Allows requests to URLs like /events?categoryId=1
     @GetMapping
     public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
 
