@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+
+
 @Entity
 public class EventDetails extends AbstractEntity {
 
@@ -16,16 +18,19 @@ public class EventDetails extends AbstractEntity {
     @Email(message = "Invalid email. Try again!")
     private String contactEmail;
 
+    // Creates the INVERSE One-to-One relationship between  <== REFERENCE ONLY, App does not need
+//    @OneToOne(mappedBy = "eventDetails")
+//    private Event event;
 
-    public EventDetails(String description, String contactEmail) {
-        this.description = description;
-        this.contactEmail = contactEmail;
-    }
+
 
     /** CONSTRUCTORS **/
 
     // Primary Constructor
-
+    public EventDetails(String description, String contactEmail) {
+        this.description = description;
+        this.contactEmail = contactEmail;
+    }
 
     // No-args Constructor
     public EventDetails () {
