@@ -27,7 +27,7 @@ public class EventController {
 
     // findAll, save, findById
 
-    
+
    // Allows requests to URLs like /events?categoryId=1
     @GetMapping
     public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
@@ -38,6 +38,7 @@ public class EventController {
             model.addAttribute("events", eventRepository.findAll());
 
         } else {
+            // Queries repository for a category object with the given ID
             Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
 
             // IF the query did NOT return a VALID categoryId
